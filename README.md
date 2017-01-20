@@ -1,5 +1,6 @@
 # Custom-Camera-Application
-How to Make a Custom Camera in Android
+How to Make a Custom Camera in Androidgit push -f
+
 
 ![alt tag](https://s30.postimg.org/ga16u0wjl/image1.jpg)
 
@@ -12,7 +13,5 @@ How to Make a Custom Camera in Android
 
 ![alt tag](https://s30.postimg.org/hg9s6ka81/image4.jpg)
 
-
-![alt tag](https://s30.postimg.org/okrlflhhd/image5.jpg)
 
 
