@@ -52,15 +52,23 @@ public class CameraActivity extends AppCompatActivity implements
     /*new Camera*/
     private Camera camera;
     private SurfaceHolder surfaceHolder;
-    private SurfaceView preview;
-    private ImageView shotBtn;
-    private RelativeLayout fleshRelativeLayout;
+
+    @BindView(R.id.SurfaceView01)
+    SurfaceView preview;
+
+    @BindView(R.id.camera_btn)
+    ImageView shotBtn;
+
+    @BindView(R.id.flesh_relative_layout)
+    RelativeLayout fleshRelativeLayout;
 
     @BindView(R.id.current_scan_img)
      ImageView currentImg;
-    private TextView pictureCountsTv;
+
     private Bitmap bmp;
-    private ImageView fleshImageView;
+
+    @BindView(R.id.flesh_imageView)
+    ImageView fleshImageView;
 
     public static Bitmap rotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
@@ -77,20 +85,10 @@ public class CameraActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-        Log.e("hasSystem", getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH) + "***");
-
-        preview = (SurfaceView) findViewById(R.id.SurfaceView01);
-
         surfaceHolder = preview.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-        fleshImageView = (ImageView) findViewById(R.id.flesh_imageView);
-
-        shotBtn = (ImageView) findViewById(R.id.camera_btn);
         shotBtn.setOnClickListener(this);
-
-        fleshRelativeLayout = (RelativeLayout) findViewById(R.id.flesh_relative_layout);
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             fleshRelativeLayout.setOnClickListener(this);
         } else {
@@ -148,11 +146,8 @@ public class CameraActivity extends AppCompatActivity implements
 
         bmp = BitmapFactory.decodeByteArray(paramArrayOfByte, 0, paramArrayOfByte.length);
         bmp = rotateBitmap(bmp, 90);
-        // to do
         saveToInternalStorage(bmp);
         currentImg.setImageBitmap(bmp);
-
-        // need to start camera after take photo
         paramCamera.startPreview();
     }
 
@@ -183,7 +178,7 @@ public class CameraActivity extends AppCompatActivity implements
         shotBtn.setAlpha(1f);
         if (paramBoolean) {
 
-            Toast.makeText(this, "ok Check", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
             paramCamera.takePicture(null, null, this);
         }
     }
@@ -266,14 +261,6 @@ public class CameraActivity extends AppCompatActivity implements
     private void initToolBar() {
         Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(tb);
-
-        // Get the ActionBar here to configure the way it behaves.
-        final android.support.v7.app.ActionBar ab = getSupportActionBar();
-        //ab.setHomeAsUpIndicator(R.drawable.ic_menu); // set a custom icon for the default home button
-        ab.setDisplayShowHomeEnabled(true); // show or hide the default home button
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
-        ab.setDisplayShowTitleEnabled(false); // disable the default title
         getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(android.R.drawable.ic_menu_close_clear_cancel));
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
